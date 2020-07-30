@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.estadisticacovid.FrancoBorsani.helpers.ViewRouteHelpers;
 
 @Controller	
-@RequestMapping("/web")
+@RequestMapping("/")
 public class UserController {	
 	@GetMapping("")
 	public ModelAndView index() {
