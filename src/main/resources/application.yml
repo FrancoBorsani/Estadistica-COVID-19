@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost/estadisticacovid?serverTimezone=UTC
     username: root
     password: 2771999
-    initialization-mode: always
+    initialization-mode: never
   jpa:
     show-sql: true
     hibernate:
