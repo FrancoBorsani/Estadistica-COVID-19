@@ -2,6 +2,7 @@ package com.estadisticacovid.FrancoBorsani.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,10 +40,16 @@ public class UserController {
 		mAV.addObject("username", user.getUsername());
 		return mAV;
 	}
+
 	
-	//PERMISOS DE ADMIN
-	//@PreAuthorize("hasRole('ROLE_ADMIN")");
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/masdatos")
+	public ModelAndView masDatos() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.WEB_MAS_DATOS);
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mAV.addObject("username", user.getUsername());
+		return mAV;
+	}
 	
 	@GetMapping("/login")	
 	public String login(Model model,	

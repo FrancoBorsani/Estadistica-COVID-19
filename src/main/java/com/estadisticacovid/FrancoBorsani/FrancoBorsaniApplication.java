@@ -11,7 +11,7 @@ public class FrancoBorsaniApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FrancoBorsaniApplication.class, args);
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		System.out.println(pe.encode("user"));
+		System.out.println(pe.encode("admin"));
 	}
 	
 	
