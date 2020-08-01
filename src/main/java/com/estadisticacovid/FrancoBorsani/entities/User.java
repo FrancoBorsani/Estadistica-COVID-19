@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.estadisticacovid.FrancoBorsani.entities.UserRole;
+
 
 
 @Entity
@@ -37,6 +39,13 @@ public class User{
 	private Set <UserRole>	userRoles = new HashSet<UserRole>();
 	
 	public User() {
+		
+	}
+	
+	public User(String username, String password, boolean enabled, Set<UserRole> userRoles) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
 		
 	}
 

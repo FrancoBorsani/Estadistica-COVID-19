@@ -29,9 +29,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
-			.antMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/*").permitAll()
-			.anyRequest().authenticated()
-			.and()
+		.antMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*", "/vendor/bootstrap/js/*").permitAll()
+	//	.antMatchers("/locales/new","/locales/create","/locales/update","/empleados/new","/empleados/create","/empleados/update").hasRole("ADMIN")// GERENTE	
+	//	.antMatchers("/pedidos","/pedidos/*","pedidos/solicitudstock").authenticated()		// TIENE QUE ESTAR LOGUEADO PARA INGRESAR
+	//	.antMatchers("/productos","/productos/*").authenticated()   // TIENE QUE ESTAR LOGUEADO PARA INGRESAR
+	//	.antMatchers("/lotes","/lotes/*").authenticated()           // TIENE QUE ESTAR LOGUEADO PARA INGRESAR
+	//	.antMatchers("/stocks","/stocks/*").authenticated()         // TIENE QUE ESTAR LOGUEADO PARA INGRESAR 
+	//	.antMatchers("/ranking","/ranking/*").authenticated()	 	// TIENE QUE ESTAR LOGUEADO PARA INGRESAR		   
+	//	.antMatchers("/clientes","/clientes/*").authenticated()  	// TIENE QUE ESTAR LOGUEADO PARA INGRESAR		   
+		.antMatchers("/").authenticated()							// TIENE QUE ESTAR LOGUEADO PARA INGRESAR
+		.and()
 			.formLogin().loginPage("/login").loginProcessingUrl("/loginprocess")
 			.usernameParameter("username").passwordParameter("password")
 			.defaultSuccessUrl("/loginsuccess").permitAll()

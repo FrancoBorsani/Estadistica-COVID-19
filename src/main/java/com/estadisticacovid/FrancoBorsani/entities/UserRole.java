@@ -1,6 +1,7 @@
 package com.estadisticacovid.FrancoBorsani.entities;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.estadisticacovid.FrancoBorsani.entities.User;
+
 
 
 @Entity
@@ -22,8 +25,8 @@ public class UserRole{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	
 	@Column(name="role", nullable=false, length=100)
@@ -31,7 +34,7 @@ public class UserRole{
 	
 	
 	public UserRole() {
-		
+
 	}
 	
 	public UserRole(int id, User user, String role) {
@@ -39,6 +42,11 @@ public class UserRole{
 		this.user = user;
 		this.role = role;
 		
+	}
+	
+	public UserRole(User user, String role) {
+		this.user = user;
+		this.role = role;
 	}
 
 	public int getId() {

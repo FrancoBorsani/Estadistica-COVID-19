@@ -11,8 +11,11 @@ import com.estadisticacovid.FrancoBorsani.entities.User;
 
 @Repository("userRepository")
 public interface IUserRepository extends JpaRepository<User, Serializable>{
-	@Query("Select u FROM User u JOIN FETCH u.userRoles WHERE u.username = (:username)")
+	@Query("SELECT u FROM User u JOIN FETCH u.userRoles WHERE u.username = (:username)")
 	public abstract User findByUsernameAndFetchUserRolesEagerly(@Param("username") String username);
+	
+	@Query("SELECT u FROM User u JOIN FETCH u.userRoles WHERE u.id= (:id)")
+	public abstract User findByIdAndFetchUserRolesEagerly(@Param("id") long id);
 
 	
 }
