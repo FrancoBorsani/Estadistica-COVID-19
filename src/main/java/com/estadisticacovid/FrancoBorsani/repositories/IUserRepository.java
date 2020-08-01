@@ -1,4 +1,4 @@
-package com.unla.estadisticacovid.FrancoBorsani.repositories;
+package com.estadisticacovid.FrancoBorsani.repositories;
 
 import java.io.Serializable;
 
