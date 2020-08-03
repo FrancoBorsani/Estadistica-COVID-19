@@ -31,8 +31,8 @@ public class UserController {
 	@Autowired
 	@Qualifier("userRoleService")
 	private UserRoleService userRoleService;
-	
-	
+
+
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.WEB_INDEX);
@@ -41,7 +41,7 @@ public class UserController {
 		return mAV;
 	}
 
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/masdatos")
 	public ModelAndView masDatos() {
@@ -50,22 +50,23 @@ public class UserController {
 		mAV.addObject("username", user.getUsername());
 		return mAV;
 	}
-	
+
 	@GetMapping("/login")	
 	public String login(Model model,	
-						@RequestParam(name="error",required=false) String error,	
-						@RequestParam(name="logout", required=false) String logout) {	
-
+			@RequestParam(name="error",required=false) String error,	
+			@RequestParam(name="logout", required=false) String logout) {	
+		System.out.println("Entró de ruta");
 		if(error!=null){
 			model.addAttribute("error", error);
 		}
-			
+
 		model.addAttribute("logout", logout);
-		
+
 		String username = "";
+		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true); 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
-		  username = ((UserDetails)principal).getUsername();
+			username = ((UserDetails)principal).getUsername();
 		}
 		System.out.println(username);
 		if(!username.isEmpty()) {
@@ -76,26 +77,60 @@ public class UserController {
 			return ViewRouteHelpers.USER_LOGIN;
 		}
 	}	
-	
-	@GetMapping("/logout")	
-	public String logout(Model model) {	
+
+	@GetMapping("/logout/")	
+	public String logout(Model model,	
+			@RequestParam(name="error",required=false) String error,	
+			@RequestParam(name="logout", required=false) String logout) {	
+		if(error!=null){
+			model.addAttribute("error", error);
+		}
+
+		model.addAttribute("logout", logout);
+
 		String username = "";
+		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false); 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
-		  username = ((UserDetails)principal).getUsername();
+			username = ((UserDetails)principal).getUsername();
 		}
 		System.out.println(username);
-		if(username.isEmpty()) {
-			System.out.println("no hay ninguna cuenta logueada");
-			return "redirect:/";	
+		if(!username.isEmpty()) {
+			System.out.println("Ya esta logueado. Primero deberia desloguearse");
+			return "redirect:/";
 		}
-		else return ViewRouteHelpers.USER_LOGOUT;	
-	}	
-	
+		else {
+			return ViewRouteHelpers.USER_LOGOUT;
+		}
+
+	}
+
+
+
+		//String username = "";
+	//	System.out.println("DESLOGUEADO1");
+		//	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//	if (principal instanceof UserDetails) {
+		//	  username = ((UserDetails)principal).getUsername();
+		//	}
+		//	System.out.println(username);
+		//	if(username.isEmpty()) {
+		//		System.out.println("no hay ninguna cuenta logueada");
+		//			return "redirect:/";	
+		//		}
+		//	else{	
+		//SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false); 
+		//System.out.println("DESLOGUEADO");
+		//return ViewRouteHelpers.USER_LOGOUT;
+
+	//}
+
+
+
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
 		return "redirect:/index";
 	}
-	
-	
+
+
 }

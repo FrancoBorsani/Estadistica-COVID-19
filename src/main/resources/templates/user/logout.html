@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html>
 <head>
-<meta charset="utf-8">
-<title>Logout</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
+<h1 class="display-5">Logout</h1>
+<form th:action = "@{/loginprocess}" method="post">
+	<input type="text" name="username" id="username" placeholder= "Username" />
+	<input type="password" name="password" id="password" placeholder ="Password"/>
+	<input type="submit"/>
+	<div th:if="${error != null}" class="alert alert-danger">
+		Invalid usarname or password
+		</div>
+</form>
 
-<h1 class="display-5 alert alert-info">Logout</h1>
-<h1 class="display-5">Login</h1>
-<form th:action="@{/loginprocess}" method="post">
-	 <input type="text" name="username" id="username" placeholder="Username"/>
-	 <input type="password" name="password" id="password" placeholder="Password"/>
-	 <input type="submit">
-</form> 
+
 
 </body>
 </html>

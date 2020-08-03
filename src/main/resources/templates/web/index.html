@@ -27,7 +27,14 @@
 	<header class="header-section">
 		<a href="/" class="site-logo">FRANCO BORSANI
 		</a>
+		<div class="rol">
+				<a class="" href="#" th:text="${#authentication.getPrincipal().authorities}" >Role</a> <a
+				class="" th:href="@{/logout/}">Logout</a>
+		</div>
+	
+		
 	</header>
+			
 	<!-- Header section end -->
 	<!-- Hero section -->
 	<section class="hero-section">

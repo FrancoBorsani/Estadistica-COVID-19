@@ -47,6 +47,8 @@ public class UserService implements UserDetailsService{
 		return new ArrayList <GrantedAuthority>(grantedAuthorities);
 	}
 	
-	
+	public void saveUser(com.estadisticacovid.FrancoBorsani.entities.User user) {
+		userRepository.save(user);
+	}
 	
 }
